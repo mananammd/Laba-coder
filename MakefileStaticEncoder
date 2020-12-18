@@ -1,6 +1,7 @@
+all: encoder
 
 encoder:  stringutils.a encoder.o
-    gcc  encoder.o -L. -lstr -o encoder
+	gcc  encoder.o -L. -lstr -o encoder
 
 stringutils.a: stringutils.o
 	ar -rc stringutils.a stringutils.o
