@@ -2,15 +2,14 @@
 
 //Является ли название шифром
 int WhatCipher(const char* type, const char* ciph) {
-    if (strlen(type) == strlen(ciph)) {
-        return 1;
-    }
     for (int i = 0; i < strlen(ciph); ++i) {
         if (type[i] == ciph[i]) {
             return 1;
         }
+	else {
+	    return 0;
+	}
     }
-    return 0;
 }
 
 
