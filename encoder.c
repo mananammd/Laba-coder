@@ -3,7 +3,7 @@
 #include <string.h>
 #include "stringutils.h"
 
-void mutableCaesarEncoder(char* str,int offset) {
+void mutableCaesarEncoder(char* str, int offset) {
     mutableStrip(str);
     mutableToLower(str);
     for (int i = 0; i < strlen(StrRes); ++i) {
