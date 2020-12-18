@@ -3,8 +3,15 @@
 #include <string.h>
 #include "stringutils.h"
 
-
-char* CaesarEncoder(const char* str, int offset) {
+void mutableCaesarEncoder(char* str,int offset) {
+    mutableStrip(str);
+    mutableToLower(str);
+    for (int i = 0; i < strlen(StrRes); ++i) {
+	str[i] = (str[i] + (offset % 26));
+    }
+}
+	    
+char* immutableCaesarEncoder(const char* str, int offset) {
     char* StrRes = immutableStrip(str);
     mutableToLower(StrRes);
     for (int i = 0; i < strlen(StrRes); ++i) {
@@ -14,7 +21,16 @@ char* CaesarEncoder(const char* str, int offset) {
 }
 
 
-char* XorEncoder(const char* str, const char* password) {
+void mutableXorEncoder(char* str, const char* password) {
+    mutableStrip(str);
+    mutableToLower(str);
+    for (int i = 0; i < strlen(str); ++i) {
+	str[i] = (str[i] ^ password[k]);
+	k = (k + 1) % strlen(password);
+    }
+}
+
+char* immutableXorEncoder(const char* str, const char* password) {
     char* StrRes = immutableStrip(str);
     mutableToLower(StrRes);
     int k = 0;
