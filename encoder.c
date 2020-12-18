@@ -7,7 +7,7 @@ void mutableCaesarEncoder(char* str, int offset) {
     mutableFilter(str);
     mutableStrip(str);
     mutableToLower(str);
-    for (int i = 0; i < strlen(StrRes); ++i) {
+    for (int i = 0; i < strlen(str); ++i) {
 	str[i] = (str[i] + (offset % 26));
     }
 }
@@ -15,7 +15,7 @@ void mutableCaesarEncoder(char* str, int offset) {
 char* immutableCaesarEncoder(const char* str, int offset) {
     char* StrRes = immutableStrip(str);
     mutableToLower(StrRes);
-    mutableFilter(str);
+    mutableFilter(StrRes);
     for (int i = 0; i < strlen(StrRes); ++i) {
 	StrRes[i] = (str[i] + (offset % 26));   
     }
@@ -27,6 +27,7 @@ void mutableXorEncoder(char* str, const char* password) {
     mutableStrip(str);
     mutableToLower(str);
     mutableFilter(str);
+    int k = 0;
     for (int i = 0; i < strlen(str); ++i) {
 	str[i] = (str[i] ^ password[k]);
 	k = (k + 1) % strlen(password);
@@ -36,7 +37,7 @@ void mutableXorEncoder(char* str, const char* password) {
 char* immutableXorEncoder(const char* str, const char* password) {
     char* StrRes = immutableStrip(str);
     mutableToLower(StrRes);
-    mutableFilter(str);
+    mutableFilter(StrRes);
     int k = 0;
     for (int i = 0; i < strlen(StrRes); ++i) {
 	StrRes[i] = (StrRes[i] ^ password[k]);
@@ -58,13 +59,13 @@ int main() {
 	int offset;
 	printf("Enter offset: ");
 	scanf("%d", &offset);
-	printf("%s\n", mutableCaesarEncoder(text, offset));
+	printf("%s\n", immutableCaesarEncoder(text, offset));
     }
     else if (WhatCipher(cipher, "XOR") == 1) {
 	char password[200];
 	printf("Enter password: ");
        	scanf("%s", password);
-        printf("%s\n", mutableXorEncoder(text, password));
+        printf("%s\n", immutableXorEncoder(text, password));
     }   
     else {
 	printf("Incorrect data");
