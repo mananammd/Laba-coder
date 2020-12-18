@@ -6,18 +6,18 @@ TARGET=decoder
 all: $(TARGET)
 
 $(TARGET): decoder.o lib.so 
-    gcc decoder.o -o $(TARGET)
+        gcc decoder.o -o $(TARGET)
 
 decoder.o: decoder.c
-    gcc $< -c -o $@ -std=c99
+        gcc $< -c -o $@ -std=c99
 
 $(TARGET): $(FORLIBRARY)
-    gcc stringutils.o -shared -o $(LIBRARY)
+        gcc stringutils.o -shared -o $(LIBRARY)
 
 stringutils.o: stringutils.c 
-    gcc -c -fPIC $< -std=c99
+        gcc -c -fPIC $< -std=c99
 
 clean:
-    rm -f *.o
-    rm -f *.so
-    rm -f decoder
+        rm -f *.o
+        rm -f *.so
+        rm -f decoder
