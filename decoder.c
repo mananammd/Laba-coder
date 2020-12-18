@@ -8,9 +8,8 @@ char* CaesarDecoder(const char* str, int offset) {
     char* StrRes = immutableStrip(str);
     mutableToLower(StrRes);
     for (int i = 0; i < strlen(StrRes); ++i) {
-	    StrRes[i] = (str[i] - (offset % 26));   
+	StrRes[i] = (str[i] - (offset % 26));   
     }
-
     return StrRes;
 }
 
@@ -19,10 +18,9 @@ char* XorEncoder(const char* str, const char* password) {
     mutableToLower(StrRes);
     int k = 0;
     for (int i = 0; i < strlen(StrRes); ++i) {
-	    StrRes[i] = (StrRes[i] ^ password[k]);
-	    k = (k + 1) % strlen(password);
+	StrRes[i] = (StrRes[i] ^ password[k]);
+	k = (k + 1) % strlen(password);
     }
-
     return StrRes;
 }
 
@@ -36,21 +34,19 @@ int main() {
     scanf("%s", text);
 
     if (WhatCipher(cipher, "Caesar") == 1) {
-	    int offset;
-	    printf("Enter offset: ");
+	int offset;
+	printf("Enter offset: ");
         scanf("%d", &offset);
         printf("%s\n", CaesarDecoder(text, offset));
     }
-
     else if (WhatCipher(cipher, "XOR") == 1) {
-	    char password[200];
-	    printf("Enter password: ");
+	char password[200];
+	printf("Enter password: ");
         scanf("%s", password);
         printf("%s\n", XorEncoder(text, password));
     }
-        
     else {
-	    printf("Incorrect data");
+	printf("Incorrect data");
     }
 
     return 0;
