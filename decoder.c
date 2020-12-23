@@ -1,70 +1,59 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include "coder.h"
 #include "stringutils.h"
 
-void mutableCaesarDecoder(char* str, int offset) {
-    mutableStrip(str);
-    mutableToLower(str);
-    for (int i = 0; i < strlen(str); ++i) {
-	str[i] = (str[i] - (offset % 26));
-    }
-}
 
-char* immutableCaesarDecoder(const char* str, int offset) {
-    char* StrRes = immutableStrip(str);
-    mutableToLower(StrRes);
-    for (int i = 0; i < strlen(StrRes); ++i) {
-	StrRes[i] = (str[i] - (offset % 26));   
-    }
-    return StrRes;
-}
+int main(int argc, char** argv) {
+    if (argc == 1) {
 
-void mutableXorDecoder(char* str, const char* password) {
-    mutableStrip(str);
-    mutableToLower(str);
-    int k = 0;
-    for (int i = 0; i < strlen(str); ++i) {
-	str[i] = (str[i] ^ password[k]);
-	k = (k + 1) % strlen(password);
-    }
-}
+	char cipher[6];
+    	printf("Enter cipher (caesar or xor): "); 
+    	scanf("%s", cipher);
+    	char text[200];
+    	printf("Enter text: ");
+    	scanf("%s", text);
 
-char* immutableXorEncoder(const char* str, const char* password) {
-    char* StrRes = immutableStrip(str);
-    mutableToLower(StrRes);
-    int k = 0;
-    for (int i = 0; i < strlen(StrRes); ++i) {
-	StrRes[i] = (StrRes[i] ^ password[k]);
-	k = (k + 1) % strlen(password);
+    	if (whatCipher(cipher, "caesar") == 1) {
+	    int offset;
+	    printf("Enter offset: ");
+            scanf("%d", &offset);
+            printf("%s\n", immutableCaesarDecoder(text, offset));
+    	}
+    	else if (whatCipher(cipher, "xor") == 1) {
+	    char password[200];
+	    printf("Enter password: ");
+            scanf("%s", password);
+            printf("%s\n", immutableXorDecoder(text, password));
+    	}
+    	else {
+	    printf("Incorrect data");
+    	}
     }
-    return StrRes;
-}
 
+    
+    else if (argc == 4) {
+	if (whatCipher(argv[1], "--ceasar") == 1) {
+	    if (isNumber(argv[3]) == 1) {
+		int offset = atoi(argv[3]);
+		printf("%s\n", immutableCaesarDecoder(argv[2], offset));
+	    }
+	    else {
+		printf("Incorrect data");
+	    }
+	}
 
-int main() {
-    char cipher[6];
-    printf("Enter cipher (Caesar or XOR): "); 
-    scanf("%s", cipher);
-    char text[200];
-    printf("Enter text: ");
-    scanf("%s", text);
-
-    if (WhatCipher(cipher, "Caesar") == 1) {
-	int offset;
-	printf("Enter offset: ");
-        scanf("%d", &offset);
-        printf("%s\n", immutableCaesarDecoder(text, offset));
+	else if (whatCipher(argv[1], "--xor") == 1) {
+	    printf("%s\n", immutableXorDecoder(argv[2], argv[3]));
+	}
+	
+	else {
+	  printf("Incorrect data");
+	}
     }
-    else if (WhatCipher(cipher, "XOR") == 1) {
-	char password[200];
-	printf("Enter password: ");
-        scanf("%s", password);
-        printf("%s\n", immutableXorEncoder(text, password));
-    }
+    
+
     else {
 	printf("Incorrect data");
-    }
-
+    }  		
     return 0;
 }

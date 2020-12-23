@@ -22,7 +22,7 @@ char* immutableAllStrip(const char* str);
 void mutableFilter(char* str);
 char* immutableFilter(const char* str);
 
-int Number(const char* str);
-int Word(const char* str); 
+int isNumber(const char* str);
+int isWord(const char* str); 
 
 #endif

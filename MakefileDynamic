@@ -1,20 +1,25 @@
 all: encoder decoder
 
-encoder: encoder.o libstr.so
-	gcc -o encoder encoder.o -L. -lstr -Wl,-rpath,.
+encoder: encoder.o libstr.so libcoder.so
+	gcc -o encoder encoder.o -L. -lcoder -lstr -Wl,-rpath,.
 
-decoder: decoder.o libstr.so
-	gcc -o decoder decoder.o -L. -lstr -Wl,-rpath,.
+decoder: decoder.o libstr.so libcoder.so
+	gcc -o decoder decoder.o -L. -lcoder -lstr -Wl,-rpath,.
 	
+libstr.so: stringutils.o
+	gcc -shared -o libstr.so stringutils.o
+libcoder.so: coder.o
+	gcc -shared -o libcoder.so coder.o
+
 encoder.o: encoder.c
 	gcc -c encoder.c -std=c99
 
 decoder.o: decoder.c
 	gcc -c decoder.c -std=c99
 	
-libstr.so: stringutils.o
-	gcc -shared -o libstr.so stringutils.o
-	
+coder.o: coder.c
+	gcc -c -fPIC coder.c -std=c99
+
 stringutils.o: stringutils.c
 	gcc -c -fPIC stringutils.c -std=c99
 	

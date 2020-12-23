@@ -1,8 +1,9 @@
 #include "stringutils.h"
 
 //Является ли название шифром
-int WhatCipher(const char* type, const char* ciph) {
-    for (int i = 0; i < strlen(ciph); ++i) {
+int whatCipher(const char* type, const char* ciph) {
+    int sizeciph = strlen(ciph);
+    for (int i = 0; i < sizeciph; ++i) {
         if (type[i] == ciph[i]) {
             return 1;
         }
@@ -24,16 +25,10 @@ void mutableToUpper(char* str) {
 
 char* immutableToUpper(const char* str) {
     int size = strlen(str);
-    char* StrRes = malloc((sizeof(char) * (size + 1)));
-    for (int i = 0; i < size; ++i) {
-	if ((str[i] >= 'a') && (str[i] <= 'z')) {
-	    StrRes[i] = str[i] + ('A' - 'a');
-	}
-        else {
-	    StrRes[i] = str[i];
-	}
-    }
-    return StrRes;
+    char* result = malloc((sizeof(char) * (size + 1)));
+    strcpy(result, str);
+    mutableToUpper(result);  
+    return result;
 }
 
 
@@ -48,16 +43,10 @@ void mutableToLower(char* str) {
 
 char* immutableToLower(const char* str) {
     int size = strlen(str);
-    char* StrRes = malloc((sizeof(char) * (size + 1)));
-    for (int i = 0; i < size; ++i) {
-	    if ((str[i] >= 'A') && (str[i] <= 'Z')) {
-	        StrRes[i] = str[i] + ('a' - 'A');
-	    }
-	    else {
-	        StrRes[i] = str[i];
-	    }
-    }
-    return StrRes;
+    char* result = malloc((sizeof(char) * (size + 1)));
+    strcpy(result, str);
+    mutableToLower(result);  
+    return result;
 }
 
 
@@ -80,21 +69,10 @@ void mutableStrip(char* str) {
 
 char* immutableStrip(const char* str) {
     int size = strlen(str);
-    int left = 0;
-    while (str[left] == ' ') {
-	left++;
-    }
-    int right = 0;
-    while (str[size - 1 - right] == ' ') {
-	right++;
-    }
-    int LenText = size - left - right;
-    char* StrRes = malloc((sizeof(char) * (size + 1)));
-    for (int i = 0; i < LenText; ++i) {
-	StrRes[i] = str[left + i];
-    }
-    StrRes[LenText] = '\0';
-    return StrRes;
+    char* result = malloc((sizeof(char) * (size + 1)));
+    strcpy(result, str);
+    mutableStrip(result);  
+    return result;
 }
 
 
@@ -112,18 +90,11 @@ void mutableAllStrip(char* str) {
 
 char* immutableAllStrip(const char* str) {
     int size = strlen(str);
-    char* StrRes = malloc((sizeof(char) * (size + 1)));
-    int j = 0;
-    for (int i = 0; i < size; ++i) {
-	if (str[i] != ' ') {
-	    StrRes[j] = str[i];
-	    ++j;
-	}
-    }
-    StrRes[j] = '\0';
-    return StrRes;
+    char* result = malloc((sizeof(char) * (size + 1)));
+    strcpy(result, str);
+    mutableAllStrip(result);  
+    return result;
 }
-
 
 void mutableFilter(char* str) {
     int size = strlen(str);
@@ -141,22 +112,14 @@ void mutableFilter(char* str) {
 
 char* immutableFilter(const char* str) {
     int size = strlen(str);
-    int j = 0;
-    char* StrRes = malloc((sizeof(char) * (size + 1)));
-    for (int i = 0; i < strlen(str); ++i) {
-	if (((str[i] >= 'a') && (str[i] <= 'z')) || ((str[i] >= 'A') && (str[i] <= 'Z'))
-	    || ((str[i] >= '0') && (str[i] <= '9')) || (str[i] == ' '))
-        {
-            StrRes[j] = str[i];
-	    ++j;
-	}
-    }
-    StrRes[j] = '\0';
-    return StrRes;
+    char* result = malloc((sizeof(char) * (size + 1)));
+    strcpy(result, str);
+    mutableFilter(result);  
+    return result;
 }
 
 
-int Number(const char* str) {
+int isNumber(const char* str) {
     int size = strlen(str);
     int SumNumber = 0;
     while ((str[SumNumber] >= '0') && (str[SumNumber] <= '9')) {
@@ -170,7 +133,7 @@ int Number(const char* str) {
     }
 }
 
-int Word(const char* str) {
+int isWord(const char* str) {
     int size = strlen(str);
     int SumLetter = 0;
     while (((str[SumLetter] >= 'a') && (str[SumLetter] <= 'z'))
