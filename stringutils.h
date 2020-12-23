@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int WhatCipher(const char* type, const char* ciph);
+int whatCipher(const char* type, const char* ciph);
 
 void mutableToUpper(char* str);
 char* immutableToUpper(const char* str);
