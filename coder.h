@@ -15,6 +15,6 @@ void mutableCaesarDecoder(char* str, int offset);
 char* immutableCaesarDecoder(const char* str, int offset);
 
 void mutableXorDecoder(char* str, const char* password);
-char* immutableXorEncoder(const char* str, const char* password);
+char* immutableXorDecoder(const char* str, const char* password);
 
 #endif
